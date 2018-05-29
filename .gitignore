@@ -60,3 +60,21 @@ packages/Microsoft\.Exchange\.WebServices\.2\.2/lib/40/Microsoft\.Exchange\.WebS
 packages/Microsoft\.Exchange\.WebServices\.2\.2/lib/40/Microsoft\.Exchange\.WebServices\.xml
 
 packages/Microsoft\.Exchange\.WebServices\.2\.2/Microsoft\.Exchange\.WebServices\.2\.2\.nupkg
+
+\.vs/G510Display/DesignTimeBuild/\.dtbcache
+
+\.vs/G510Display/v15/\.suo
+
+G510Display/bin/x64/Debug/G510Display\.exe\.config
+
+G510Display/bin/x64/Debug/LogitechLcdEnginesWrapper_x86\.dll
+
+G510Display/bin/x64/Debug/Microsoft\.Exchange\.WebServices\.Auth\.dll
+
+G510Display/bin/x64/Debug/Microsoft\.Exchange\.WebServices\.Auth\.pdb
+
+G510Display/bin/x64/Debug/Microsoft\.Exchange\.WebServices\.Auth\.xml
+
+G510Display/bin/x64/Debug/Microsoft\.Exchange\.WebServices\.pdb
+
+G510Display/bin/x64/Debug/Microsoft\.Exchange\.WebServices\.xml
