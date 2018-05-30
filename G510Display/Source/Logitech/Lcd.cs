@@ -13,14 +13,17 @@ namespace G510Display.Source
     bool IsKey1Pressed = false;
     bool IsKey2Pressed = false;
     bool IsKey3Pressed = false;
+    LcdKeyCB KeyCb;
 
     public void Init()
+    public void Init(LcdKeyCB LcdKeyCb)
     {
       TestImage = new DImage();
       //Font = TestImage.fonts.Font_4x6_tf;
       Loaded = LogitechInterface.LogiLcdInit("G510Display", LogitechInterface.LOGI_LCD_TYPE_MONO);
       TestImage.NewImage(LogitechInterface.LOGI_LCD_MONO_WIDTH, LogitechInterface.LOGI_LCD_MONO_HEIGHT, false, false, false);
       //TestImage.DrawHLine(10, 10, 20, 0xFF);
+      KeyCb = LcdKeyCb;
     }
     public void LcdWrite(int lineNumber, String text)
     {
