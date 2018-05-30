@@ -42,6 +42,15 @@ namespace G510Display.Source
     public void Clear()
     {
       TestImage.DrawClear();
+      TestImage.DrawHLine(0, 0, 160, 255);
+      TestImage.DrawHLine(0, 1, 160, 255);
+      TestImage.DrawHLine(0, 2, 160, 255);
+      TestImage.DrawHLine(0, 3, 160, 255);
+      TestImage.DrawHLine(0, 4, 160, 255);
+      TestImage.DrawHLine(0, 5, 160, 255);
+      TestImage.DrawHLine(0, 6, 160, 255);
+    }
+
     public void PollKeys()
     {
       if (IsKey0Pressed != LogitechInterface.LogiLcdIsButtonPressed(LogitechInterface.LOGI_LCD_MONO_BUTTON_0))
@@ -83,10 +92,14 @@ namespace G510Display.Source
 
     public void LcdWriteTime()
     {
-      String s = DateTime.Now.ToLongDateString() + "  " + DateTime.Now.ToLongTimeString();
-      TestImage.Font_4x6_tf.DrawString(0, 0, s);
+      TestImage.Image.ModeInverse = true;
+      TestImage.Image.ModeTransparent = false;
+      TestImage.Font_4x6_tf.DrawString(5, 1, DateTime.Now.ToLongDateString());
+      TestImage.Font_4x6_tf.DrawStringRightAligned(157, 1, DateTime.Now.ToLongTimeString());
       //TestImage.DrawString(s, 0, 0, Font);
       //LogitechInterface.LogiLcdMonoSetText(0, s);
+      TestImage.Image.ModeInverse = false;
+      TestImage.Image.ModeTransparent = true;
     }
 
     public void LcdWrite(int ItemNr, NextItem Item)
