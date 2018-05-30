@@ -90,10 +90,15 @@ namespace G510Display.Source.Workerthread
       Lcd.Update();
       NextUpdateLcd = DateTime.Now.AddMilliseconds(100);
     }
+
     private void DoPollLcdKeys()
     {
       Lcd.PollKeys();
       NextUpdatePollLcdKeys = DateTime.Now.AddMilliseconds(50);
+    }
+    override public void OnKey3Pressed()
+    {
+      DoReadExchange();
     }
   }
 }
