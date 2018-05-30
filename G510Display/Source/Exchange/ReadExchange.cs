@@ -30,8 +30,6 @@ namespace G510Display.Source
       CalendarView calView = new CalendarView(Today, Today.AddDays(2));
 
       List<NextItem> NextItems = new List<NextItem>();
-      //try
-      //{
         FindItemsResults<Item> instanceResults = EllipsService.FindItems(WellKnownFolderName.Calendar, calView);
 
         foreach (Item item in instanceResults.Items)
@@ -48,12 +46,6 @@ namespace G510Display.Source
 
           Console.WriteLine(appointment.Start + "  " + appointment.End + "  " + appointment.Subject);
         }
-
-      //}
-      //catch (Exception ex)
-      //{
-      //  //Console.WriteLine("Error: " + ex.Message);
-      //}
 
       return NextItems;
     }
