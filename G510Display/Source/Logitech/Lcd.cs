@@ -102,7 +102,7 @@ namespace G510Display.Source
       TestImage.Image.ModeTransparent = true;
     }
 
-    public void LcdWrite(int ItemNr, NextItem Item)
+    public void LcdWrite(int ItemNr, CalendarItem Item)
     {
       //27 characters on 1 line
       TimeSpan Duration = Item.Start - DateTime.Now;
