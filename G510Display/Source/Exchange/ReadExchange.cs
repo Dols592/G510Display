@@ -18,19 +18,14 @@ namespace G510Display.Source
   {
     public static List<NextItem> ReadTodaysCalendarItems()
     {
-      ExchangeService EllipsService = new ExchangeService();
-      EllipsService.Url = new Uri("https://autodiscover.ellips.com/EWS/Exchange.asmx");
-      EllipsService.UseDefaultCredentials = true;
-  
-      //EllipsService.Credentials = new System.Net.NetworkCredential("User", "Password", "Domain");
-
       ItemView view = new ItemView(5);
       DateTime Today = DateTime.Today;
       DateTime Now = DateTime.Now;
       CalendarView calView = new CalendarView(Today, Today.AddDays(2));
 
       List<NextItem> NextItems = new List<NextItem>();
-      FindItemsResults<Item> instanceResults = EllipsService.FindItems(WellKnownFolderName.Calendar, calView);
+
+      FindItemsResults<Item> SearchResults = CreateExchangeConnection().FindItems(WellKnownFolderName.Calendar, calView);
 
       foreach (Item item in instanceResults.Items)
       {
