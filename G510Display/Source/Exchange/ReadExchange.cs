@@ -43,8 +43,6 @@ namespace G510Display.Source
           NewItem.Subject = appointment.Subject;
           NextItems.Add(NewItem);
         }
-
-        Console.WriteLine(appointment.Start + "  " + appointment.End + "  " + appointment.Subject);
       }
 
       return NextItems;
