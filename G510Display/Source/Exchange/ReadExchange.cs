@@ -18,7 +18,7 @@ namespace G510Display.Source
   {
     public static List<CalendarItem> ReadTodaysCalendarItems()
     {
-      ItemView view = new ItemView(5);
+      ItemView view = new ItemView(10);
       DateTime Today = DateTime.Today;
       DateTime Now = DateTime.Now;
       CalendarView calView = new CalendarView(Today, Today.AddDays(2));
