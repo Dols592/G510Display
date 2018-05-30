@@ -32,20 +32,20 @@ namespace G510Display.Source
       List<NextItem> NextItems = new List<NextItem>();
         FindItemsResults<Item> instanceResults = EllipsService.FindItems(WellKnownFolderName.Calendar, calView);
 
-        foreach (Item item in instanceResults.Items)
+      foreach (Item item in instanceResults.Items)
+      {
+        Appointment appointment = item as Appointment;
+        if (Now < appointment.End)
         {
-          Appointment appointment = item as Appointment;
-          if (Now < appointment.End)
-          {
-            NextItem NewItem;
-            NewItem.Start = appointment.Start;
-            NewItem.End = appointment.End;
-            NewItem.Subject = appointment.Subject;
-            NextItems.Add(NewItem);
-          }
-
-          Console.WriteLine(appointment.Start + "  " + appointment.End + "  " + appointment.Subject);
+          NextItem NewItem;
+          NewItem.Start = appointment.Start;
+          NewItem.End = appointment.End;
+          NewItem.Subject = appointment.Subject;
+          NextItems.Add(NewItem);
         }
+
+        Console.WriteLine(appointment.Start + "  " + appointment.End + "  " + appointment.Subject);
+      }
 
       return NextItems;
     }
