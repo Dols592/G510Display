@@ -23,7 +23,7 @@ namespace G510Display.Source
       DateTime Now = DateTime.Now;
       CalendarView calView = new CalendarView(Today, Today.AddDays(2));
 
-      List<CalendarItem> NextItems = new List<CalendarItem>();
+      List<CalendarItem> CalendarItems = new List<CalendarItem>();
 
       FindItemsResults<Item> SearchResults = CreateExchangeConnection().FindItems(WellKnownFolderName.Calendar, calView);
 
@@ -36,11 +36,11 @@ namespace G510Display.Source
           NewItem.Start = appointment.Start;
           NewItem.End = appointment.End;
           NewItem.Subject = appointment.Subject;
-          NextItems.Add(NewItem);
+          CalendarItems.Add(NewItem);
         }
       }
 
-      return NextItems;
+      return CalendarItems;
     }
     private static ExchangeService CreateExchangeConnection()
     {
