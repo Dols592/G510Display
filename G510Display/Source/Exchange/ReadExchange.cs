@@ -27,7 +27,7 @@ namespace G510Display.Source
 
       FindItemsResults<Item> SearchResults = CreateExchangeConnection().FindItems(WellKnownFolderName.Calendar, calView);
 
-      foreach (Item item in instanceResults.Items)
+      foreach (Item item in SearchResults.Items)
       {
         Appointment appointment = item as Appointment;
         if (Now < appointment.End)
