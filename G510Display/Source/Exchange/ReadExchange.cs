@@ -30,7 +30,7 @@ namespace G510Display.Source
       CalendarView calView = new CalendarView(Today, Today.AddDays(2));
 
       List<NextItem> NextItems = new List<NextItem>();
-        FindItemsResults<Item> instanceResults = EllipsService.FindItems(WellKnownFolderName.Calendar, calView);
+      FindItemsResults<Item> instanceResults = EllipsService.FindItems(WellKnownFolderName.Calendar, calView);
 
       foreach (Item item in instanceResults.Items)
       {
@@ -54,7 +54,6 @@ namespace G510Display.Source
       EllipsService.UseDefaultCredentials = true;
       //EllipsService.Credentials = new System.Net.NetworkCredential("User", "Password", "Domain");
       return EllipsService;
-
     }
   }
 }
