@@ -27,7 +27,6 @@ namespace G510Display.Source
       if (!Loaded) return;
       LogitechInterface.LogiLcdMonoSetText(lineNumber, text);
     }
-
     public void Update()
     {
       if (!Loaded) return;
@@ -45,7 +44,6 @@ namespace G510Display.Source
       TestImage.DrawHLine(0, 5, 160, 255);
       TestImage.DrawHLine(0, 6, 160, 255);
     }
-
     public void PollKeys()
     {
       if (IsKey0Pressed != LogitechInterface.LogiLcdIsButtonPressed(LogitechInterface.LOGI_LCD_MONO_BUTTON_0))
@@ -84,7 +82,6 @@ namespace G510Display.Source
           KeyCb.OnKey3Released();
       }
     }
-
     public void LcdWriteTime()
     {
       TestImage.Image.ModeInverse = true;
@@ -94,7 +91,6 @@ namespace G510Display.Source
       TestImage.Image.ModeInverse = false;
       TestImage.Image.ModeTransparent = true;
     }
-
     public void LcdWrite(int ItemNr, CalendarItem Item)
     {
       TimeSpan Duration = Item.Start - DateTime.Now;
