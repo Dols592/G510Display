@@ -7,7 +7,7 @@ using Microsoft.Exchange.WebServices.Data;
 
 namespace G510Display.Source
 {
-  struct NextItem
+  struct CalendarItem
   {
     public DateTime Start;
     public DateTime End;
@@ -16,14 +16,14 @@ namespace G510Display.Source
 
   class ReadExchange
   {
-    public static List<NextItem> ReadTodaysCalendarItems()
+    public static List<CalendarItem> ReadTodaysCalendarItems()
     {
       ItemView view = new ItemView(5);
       DateTime Today = DateTime.Today;
       DateTime Now = DateTime.Now;
       CalendarView calView = new CalendarView(Today, Today.AddDays(2));
 
-      List<NextItem> NextItems = new List<NextItem>();
+      List<CalendarItem> NextItems = new List<CalendarItem>();
 
       FindItemsResults<Item> SearchResults = CreateExchangeConnection().FindItems(WellKnownFolderName.Calendar, calView);
 
@@ -32,7 +32,7 @@ namespace G510Display.Source
         Appointment appointment = item as Appointment;
         if (Now < appointment.End)
         {
-          NextItem NewItem;
+          CalendarItem NewItem;
           NewItem.Start = appointment.Start;
           NewItem.End = appointment.End;
           NewItem.Subject = appointment.Subject;
