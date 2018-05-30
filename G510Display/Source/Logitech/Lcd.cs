@@ -69,4 +69,15 @@ namespace G510Display.Source
       TestImage.Font_4x6_tf.DrawString(18, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing(), Item.Subject);
     }
   }
+  public class LcdKeyCB
+  {
+    virtual public void OnKey0Pressed() { }
+    virtual public void OnKey0Released() { }
+    virtual public void OnKey1Pressed() { }
+    virtual public void OnKey1Released() { }
+    virtual public void OnKey2Pressed() { }
+    virtual public void OnKey2Released() { }
+    virtual public void OnKey3Pressed() { }
+    virtual public void OnKey3Released() { }
+  }
 }
