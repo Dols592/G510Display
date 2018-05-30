@@ -18,19 +18,14 @@ namespace G510Display.Source
     public void Init(LcdKeyCB LcdKeyCb)
     {
       TestImage = new DImage();
-      //Font = TestImage.fonts.Font_4x6_tf;
       Loaded = LogitechInterface.LogiLcdInit("G510Display", LogitechInterface.LOGI_LCD_TYPE_MONO);
       TestImage.NewImage(LogitechInterface.LOGI_LCD_MONO_WIDTH, LogitechInterface.LOGI_LCD_MONO_HEIGHT, false, false, false);
-      //TestImage.DrawHLine(10, 10, 20, 0xFF);
       KeyCb = LcdKeyCb;
     }
     public void LcdWrite(int lineNumber, String text)
     {
       if (!Loaded) return;
       LogitechInterface.LogiLcdMonoSetText(lineNumber, text);
-      //LogitechInterface.LogiLcdMonoSetText(1, "1234567890");
-      //LogitechInterface.LogiLcdMonoSetText(2, "12345678901234567890");
-      //LogitechInterface.LogiLcdMonoSetText(3, "123456789012345678901234567890");
     }
 
     public void Update()
@@ -96,15 +91,12 @@ namespace G510Display.Source
       TestImage.Image.ModeTransparent = false;
       TestImage.Font_4x6_tf.DrawString(5, 1, DateTime.Now.ToLongDateString());
       TestImage.Font_4x6_tf.DrawStringRightAligned(157, 1, DateTime.Now.ToLongTimeString());
-      //TestImage.DrawString(s, 0, 0, Font);
-      //LogitechInterface.LogiLcdMonoSetText(0, s);
       TestImage.Image.ModeInverse = false;
       TestImage.Image.ModeTransparent = true;
     }
 
     public void LcdWrite(int ItemNr, CalendarItem Item)
     {
-      //27 characters on 1 line
       TimeSpan Duration = Item.Start - DateTime.Now;
       int StartMinute = (int) (Duration.TotalHours * 60.0) + 1;
 
