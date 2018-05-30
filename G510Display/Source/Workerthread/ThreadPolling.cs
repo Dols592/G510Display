@@ -50,30 +50,38 @@ namespace G510Display.Source.Workerthread
     {
       DateTime TimestampNow = DateTime.Now;
       if (TimestampNow > NextReadCalendar)
-      {
-        CalendarItems = ReadExchange.ReadTodaysCalendarItems();
-        NextReadCalendar = TimestampNow.AddMinutes(1);
-      }
-      if (TimestampNow > NextUpdateLcd)
-      {
-        Lcd.Clear();
-        Lcd.LcdWriteTime();
+        DoReadExchange();
 
-        if (CalendarItems.Count <= 0)
-        {
-          Lcd.LcdWrite(1, "No Items.");
-        }
-        else
-        {
-          for (int i = 0; i < 6; i++)
-          {
-            if (CalendarItems.Count > i)
-              Lcd.LcdWrite(i, CalendarItems[i]);
-          }
-        }
-        Lcd.Update();
-        NextUpdateLcd = TimestampNow.AddMilliseconds(100);
+      if (TimestampNow > NextUpdateLcd)
+        DoUpdateLcd();
+    }
+    private void DoReadExchange()
+    {
+      CalendarItems = ReadExchange.ReadTodaysCalendarItems();
+      EmailItems = ReadExchange.CheckForNewMail();
+      DoUpdateLcd();
+      NextReadCalendar = DateTime.Now.AddMinutes(1);
+    }
+    private void DoUpdateLcd()
+    {
+      Lcd.Clear();
+      Lcd.LcdWriteTime();
+
+      if (CalendarItems.Count <= 0)
+      {
+        Lcd.LcdWrite(1, "No Items.");
       }
+      else
+      {
+        for (int i = 0; i < 6; i++)
+        {
+          if (CalendarItems.Count > i)
+            Lcd.LcdWrite(i, CalendarItems[i]);
+        }
+
+      }
+      Lcd.Update();
+      NextUpdateLcd = DateTime.Now.AddMilliseconds(100);
     }
   }
 }
