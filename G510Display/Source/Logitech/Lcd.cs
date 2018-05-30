@@ -108,9 +108,9 @@ namespace G510Display.Source
         s = string.Format("{0,4}  {1}", StartMinute, Item.Subject);
       else
         s = string.Format("{0,3}  {1}", StartMinute, Item.Subject);
-
-      TestImage.Font_4x6_tf.DrawStringRightAligned(17, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing(), StartMinute.ToString());
-      TestImage.Font_4x6_tf.DrawString(18, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing(), Item.Subject);
+      
+      TestImage.Font_4x6_tf.DrawStringRightAligned(17, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing() + 1, StartMinute.ToString());
+      TestImage.Font_4x6_tf.DrawString(20, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing() + 1, Item.Subject);
     }
   }
   public class LcdKeyCB
