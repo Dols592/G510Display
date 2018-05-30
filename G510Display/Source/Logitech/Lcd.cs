@@ -42,6 +42,43 @@ namespace G510Display.Source
     public void Clear()
     {
       TestImage.DrawClear();
+    public void PollKeys()
+    {
+      if (IsKey0Pressed != LogitechInterface.LogiLcdIsButtonPressed(LogitechInterface.LOGI_LCD_MONO_BUTTON_0))
+      {
+        IsKey0Pressed = !IsKey0Pressed;
+        if (IsKey0Pressed)
+          KeyCb.OnKey0Pressed();
+        else
+          KeyCb.OnKey0Released();
+      }
+
+      if (IsKey1Pressed != LogitechInterface.LogiLcdIsButtonPressed(LogitechInterface.LOGI_LCD_MONO_BUTTON_1))
+      {
+        IsKey1Pressed = !IsKey1Pressed;
+        if (IsKey1Pressed)
+          KeyCb.OnKey1Pressed();
+        else
+          KeyCb.OnKey1Released();
+      }
+
+      if (IsKey2Pressed != LogitechInterface.LogiLcdIsButtonPressed(LogitechInterface.LOGI_LCD_MONO_BUTTON_2))
+      {
+        IsKey2Pressed = !IsKey2Pressed;
+        if (IsKey2Pressed)
+          KeyCb.OnKey2Pressed();
+        else
+          KeyCb.OnKey2Released();
+      }
+
+      if (IsKey3Pressed != LogitechInterface.LogiLcdIsButtonPressed(LogitechInterface.LOGI_LCD_MONO_BUTTON_3))
+      {
+        IsKey3Pressed = !IsKey3Pressed;
+        if (IsKey3Pressed)
+          KeyCb.OnKey3Pressed();
+        else
+          KeyCb.OnKey3Released();
+      }
     }
 
     public void LcdWriteTime()
