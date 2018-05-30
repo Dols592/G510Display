@@ -7,13 +7,15 @@ using System.Threading;
 
 namespace G510Display.Source.Workerthread
 {
-  class ThreadPolling
+  class ThreadPolling : LcdKeyCB
   {
     private bool stopping;
     private ManualResetEvent stoppedEvent;
     private DateTime NextReadCalendar = DateTime.MinValue;
     private DateTime NextUpdateLcd = DateTime.MinValue;
-    List<NextItem> CalendarItems;
+    private DateTime NextUpdatePollLcdKeys = DateTime.MinValue;
+    List<CalendarItem> CalendarItems;
+    List<EmailItem> EmailItems;
     Lcd Lcd = new Lcd();
 
     public void StartThread()
