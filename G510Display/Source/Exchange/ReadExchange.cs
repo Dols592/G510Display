@@ -29,13 +29,13 @@ namespace G510Display.Source
 
       foreach (Item item in SearchResults.Items)
       {
-        Appointment appointment = item as Appointment;
-        if (Now < appointment.End)
+        Appointment ItemAppointment = item as Appointment;
+        if (Now < ItemAppointment.End)
         {
           CalendarItem NewItem;
-          NewItem.Start = appointment.Start;
-          NewItem.End = appointment.End;
-          NewItem.Subject = appointment.Subject;
+          NewItem.Start = ItemAppointment.Start;
+          NewItem.End = ItemAppointment.End;
+          NewItem.Subject = ItemAppointment.Subject;
           CalendarItems.Add(NewItem);
         }
       }
