@@ -15,7 +15,6 @@ namespace G510Display.Source
     bool IsKey3Pressed = false;
     LcdKeyCB KeyCb;
 
-    public void Init()
     public void Init(LcdKeyCB LcdKeyCb)
     {
       TestImage = new DImage();
