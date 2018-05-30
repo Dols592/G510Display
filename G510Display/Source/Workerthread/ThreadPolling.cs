@@ -83,6 +83,10 @@ namespace G510Display.Source.Workerthread
         }
 
       }
+      if (EmailItems.Count > 0)
+      {
+        Lcd.LcdWrite(EmailItems[0]);
+      }
       Lcd.Update();
       NextUpdateLcd = DateTime.Now.AddMilliseconds(100);
     }
