@@ -37,7 +37,7 @@ namespace G510Display.Source.Workerthread
       while (!stopping)
       {
         CheckIfActionIsNeeded();
-        Thread.Sleep(100);
+        Thread.Sleep(10);
       }
 
       this.stoppedEvent.Set();
