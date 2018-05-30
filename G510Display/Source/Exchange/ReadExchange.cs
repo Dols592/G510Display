@@ -32,11 +32,11 @@ namespace G510Display.Source
         Appointment ItemAppointment = item as Appointment;
         if (Now < ItemAppointment.End)
         {
-          CalendarItem NewItem;
-          NewItem.Start = ItemAppointment.Start;
-          NewItem.End = ItemAppointment.End;
-          NewItem.Subject = ItemAppointment.Subject;
-          CalendarItems.Add(NewItem);
+          CalendarItem NewCalendarItem;
+          NewCalendarItem.Start = ItemAppointment.Start;
+          NewCalendarItem.End = ItemAppointment.End;
+          NewCalendarItem.Subject = ItemAppointment.Subject;
+          CalendarItems.Add(NewCalendarItem);
         }
       }
 
