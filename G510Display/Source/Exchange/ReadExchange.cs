@@ -49,6 +49,26 @@ namespace G510Display.Source
 
       return CalendarItems;
     }
+    public static List<EmailItem> CheckForNewMail()
+    {
+      ItemView View = new ItemView(10);
+      SearchFilter Filter = new SearchFilter.IsEqualTo(EmailMessageSchema.IsRead, false);
+
+      List<EmailItem> EmailItems = new List<EmailItem>();
+
+      FindItemsResults<Item> SearchResults = CreateExchangeConnection().FindItems(WellKnownFolderName.Inbox, Filter, View);
+      foreach (Item item in SearchResults.Items)
+      {
+        EmailMessage ItemEmail = item as EmailMessage;
+        EmailItem NewEmailItem;
+        NewEmailItem.From= ItemEmail.Sender.Name;
+        NewEmailItem.Subject = ItemEmail.Subject;
+        NewEmailItem.ReceivedTimestamp = ItemEmail.DateTimeReceived;
+        EmailItems.Add(NewEmailItem);
+      }
+
+      return EmailItems;
+    }
     private static ExchangeService CreateExchangeConnection()
     {
       ExchangeService EllipsService = new ExchangeService();
