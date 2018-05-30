@@ -47,5 +47,14 @@ namespace G510Display.Source
 
       return NextItems;
     }
+    private static ExchangeService CreateExchangeConnection()
+    {
+      ExchangeService EllipsService = new ExchangeService();
+      EllipsService.Url = new Uri("https://autodiscover.ellips.com/EWS/Exchange.asmx");
+      EllipsService.UseDefaultCredentials = true;
+      //EllipsService.Credentials = new System.Net.NetworkCredential("User", "Password", "Domain");
+      return EllipsService;
+
+    }
   }
 }
