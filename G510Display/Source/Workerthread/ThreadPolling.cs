@@ -32,7 +32,7 @@ namespace G510Display.Source.Workerthread
     }
     private void ServiceWorkerThread(object state)
     {
-      Lcd.Init();
+      Lcd.Init(this);
 
       while (!stopping)
       {
