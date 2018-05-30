@@ -14,6 +14,13 @@ namespace G510Display.Source
     public string Subject;
   }
 
+  struct EmailItem
+  {
+    public String From;
+    public String Subject;
+    public DateTime ReceivedTimestamp;
+  }
+
   class ReadExchange
   {
     public static List<CalendarItem> ReadTodaysCalendarItems()
