@@ -9,6 +9,10 @@ namespace G510Display.Source
   {
     DImage TestImage;
     bool Loaded = false;
+    bool IsKey0Pressed = false;
+    bool IsKey1Pressed = false;
+    bool IsKey2Pressed = false;
+    bool IsKey3Pressed = false;
 
     public void Init()
     {
