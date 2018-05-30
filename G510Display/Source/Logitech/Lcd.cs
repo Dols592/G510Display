@@ -112,6 +112,16 @@ namespace G510Display.Source
       TestImage.Font_4x6_tf.DrawStringRightAligned(17, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing() + 1, StartMinute.ToString());
       TestImage.Font_4x6_tf.DrawString(20, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing() + 1, Item.Subject);
     }
+    public void LcdWrite(EmailItem Item)
+    {
+      String InfoString1 = "From: " + Item.From;
+      String InfoString2 = "Subject: " + Item.Subject;
+
+      G510Display.Source.Fonts.Font DrawFont = TestImage.Font_4x6_tf;
+
+      DrawFont.DrawString(0, LogitechInterface.LOGI_LCD_MONO_HEIGHT - (2 * DrawFont.GetYSpacing()), InfoString1);
+      DrawFont.DrawString(0, LogitechInterface.LOGI_LCD_MONO_HEIGHT - (1 * DrawFont.GetYSpacing()), InfoString2);
+    }
   }
   public class LcdKeyCB
   {
