@@ -26,9 +26,9 @@ namespace G510Display.Source
     public static List<CalendarItem> ReadTodaysCalendarItems()
     {
       ItemView view = new ItemView(10);
-      DateTime Today = DateTime.Today;
-      DateTime Now = DateTime.Now;
-      CalendarView calView = new CalendarView(Today, Today.AddDays(2));
+      DateTime Start = DateTime.Now;
+      DateTime End = DateTime.Today.AddDays(2);      
+      CalendarView calView = new CalendarView(Start, End);
 
       List<CalendarItem> CalendarItems = new List<CalendarItem>();
 
@@ -37,14 +37,12 @@ namespace G510Display.Source
       foreach (Item item in SearchResults.Items)
       {
         Appointment ItemAppointment = item as Appointment;
-        if (Now < ItemAppointment.End)
-        {
-          CalendarItem NewCalendarItem;
-          NewCalendarItem.Start = ItemAppointment.Start;
-          NewCalendarItem.End = ItemAppointment.End;
-          NewCalendarItem.Subject = ItemAppointment.Subject;
-          CalendarItems.Add(NewCalendarItem);
-        }
+
+        CalendarItem NewCalendarItem;
+        NewCalendarItem.Start = ItemAppointment.Start;
+        NewCalendarItem.End = ItemAppointment.End;
+        NewCalendarItem.Subject = ItemAppointment.Subject;
+        CalendarItems.Add(NewCalendarItem);
       }
 
       return CalendarItems;

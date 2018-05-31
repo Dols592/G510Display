@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using G510Display.Source.Google;
 
 namespace G510Display.Source.Workerthread
 {
@@ -14,8 +15,10 @@ namespace G510Display.Source.Workerthread
     private DateTime NextReadCalendar = DateTime.MinValue;
     private DateTime NextUpdateLcd = DateTime.MinValue;
     private DateTime NextUpdatePollLcdKeys = DateTime.MinValue;
-    List<CalendarItem> CalendarItems;
-    List<EmailItem> EmailItems;
+    List<CalendarItem> CalendarItemsExchange;
+    List<EmailItem> EmailItemsExchange;
+    List<CalendarItem> CalendarItemsGoogle;
+    List<EmailItem> EmailItemsGoogle;
     Lcd Lcd = new Lcd();
 
     public void StartThread()
@@ -33,6 +36,8 @@ namespace G510Display.Source.Workerthread
     private void ServiceWorkerThread(object state)
     {
       Lcd.Init(this);
+
+      G510Display.Source.Google.GoogleCalendar.ReadTodaysCalendarItems();
 
       while (!stopping)
       {
@@ -60,8 +65,10 @@ namespace G510Display.Source.Workerthread
     }
     private void DoReadExchange()
     {
-      CalendarItems = ReadExchange.ReadTodaysCalendarItems();
-      EmailItems = ReadExchange.CheckForNewMail();
+      CalendarItemsExchange = ReadExchange.ReadTodaysCalendarItems();
+      EmailItemsExchange = ReadExchange.CheckForNewMail();
+      CalendarItemsGoogle = GoogleCalendar.ReadTodaysCalendarItems();
+
       DoUpdateLcd();
       NextReadCalendar = DateTime.Now.AddMinutes(1);
     }
@@ -70,22 +77,21 @@ namespace G510Display.Source.Workerthread
       Lcd.Clear();
       Lcd.LcdWriteTime();
 
-      if (CalendarItems.Count <= 0)
+      Int32 LineCount = 0;
+      for (int i = 0; i < 2; i++)
       {
-        Lcd.LcdWrite(1, "No Items.");
+        if (CalendarItemsExchange.Count > i)
+          Lcd.LcdWrite(LineCount++, CalendarItemsExchange[i]);
       }
-      else
+      for (int i = 0; i < 2; i++)
       {
-        for (int i = 0; i < 6; i++)
-        {
-          if (CalendarItems.Count > i)
-            Lcd.LcdWrite(i, CalendarItems[i]);
-        }
+        if (CalendarItemsGoogle.Count > i)
+          Lcd.LcdWrite(LineCount++, CalendarItemsGoogle[i]);
+      }
 
-      }
-      if (EmailItems.Count > 0)
+      if (EmailItemsExchange.Count > 0)
       {
-        Lcd.LcdWrite(EmailItems[0]);
+        Lcd.LcdWrite(EmailItemsExchange[0]);
       }
       Lcd.Update();
       NextUpdateLcd = DateTime.Now.AddMilliseconds(100);
