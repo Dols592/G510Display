@@ -59,14 +59,14 @@ namespace G510Display.Source.Google
           CalendarItem NewCalendarItem;
           if (eventItem.Start.DateTime != null)
             NewCalendarItem.Start = (DateTime)eventItem.Start.DateTime;
-          if (eventItem.Start.Date != null)
+          else if (eventItem.Start.Date != null)
             NewCalendarItem.Start = DateTime.Parse(eventItem.Start.Date);
           else
             continue;
 
           if (eventItem.End.DateTime != null)
             NewCalendarItem.End = (DateTime)eventItem.Start.DateTime;
-          if (eventItem.End.Date != null)
+          else if (eventItem.End.Date != null)
             NewCalendarItem.End = DateTime.Parse(eventItem.Start.Date);
           else
             continue;
