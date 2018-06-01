@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace G510Display.Source.Fonts
 {
-  partial class Font
+  public partial class Font
   {
-    PutPixelInterface PutPixelWriter;
+    public Int32 CursorX = 0;
+    public Int32 CursorY = 0;
+    public bool ModeTransparent = true;//do not write background
+    public bool ModeInverse = false;
+
+    CFontPutPixelCB PutPixelWriter;
     private Int32 GetCharPos(char Character)
     {
       int DataEnd = FontHeader.FontData.Length;
@@ -35,15 +40,15 @@ namespace G510Display.Source.Fonts
       DecodeInfo.SetGlyphInfo(GlyphHeader);
 
       if (RightAlignment)
-        PutPixelWriter.CursorX -= GlyphHeader.BitmapPitch;
+        CursorX -= GlyphHeader.BitmapPitch;
 
       DrawGlyph(DecodeInfo, GlyphHeader);
 
-      if (!PutPixelWriter.ModeTransparent)
+      if (!ModeTransparent)
         EraseRemainingBackground(GlyphHeader);
 
       if (!RightAlignment)
-        PutPixelWriter.CursorX += GlyphHeader.BitmapPitch;
+        CursorX += GlyphHeader.BitmapPitch;
 
     }
     private void DrawGlyph(GlyphDecodeInfo DecodeInfo, BDF_Glyph_Header GlyphHeader)
@@ -65,7 +70,7 @@ namespace G510Display.Source.Fonts
       {
         if (DecodeInfo.IsBitmapReady())
           return;
-        PutPixelWriter.PutPixel(DecodeInfo.BitmapX + DecodeInfo.OffsetX, DecodeInfo.BitmapY + DecodeInfo.OffsetY, Color);
+        PutFontPixel(DecodeInfo.BitmapX + DecodeInfo.OffsetX, DecodeInfo.BitmapY + DecodeInfo.OffsetY, Color);
         DecodeInfo.MoveOnePixel();
       }
     }
@@ -83,9 +88,21 @@ namespace G510Display.Source.Fonts
             if (X == GlyphHeader.BitmapOffsetX)
               X += GlyphHeader.BitmapWidth;
           }
-          PutPixelWriter.PutPixel(X, Y, false);
+          PutFontPixel(X, Y, false);
         }
       }
+    }
+
+    private void PutFontPixel(Int32 x, Int32 y, bool Foreground)
+    {
+      if (ModeTransparent && !Foreground)
+        return;
+
+      bool Writecolor = Foreground;
+      Int32 WriteX = x + CursorX;
+      Int32 WriteY = y + CursorY;
+      if (ModeInverse) Writecolor = !Writecolor;
+      PutPixelWriter.FontPutPixelCB(WriteX, WriteY, Writecolor);
     }
     private BDF_Glyph_Header ReadGlyphHeader(ref GlyphDecodeInfo DecodeInfo)
     {

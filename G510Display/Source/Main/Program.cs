@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Threading;
-using G510Display.Source.Logitech;
-using G510Display.Source.DrawImage;
+using System.Windows.Forms;
+
 
 namespace G510Display
 {

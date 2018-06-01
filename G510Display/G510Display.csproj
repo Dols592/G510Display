@@ -126,15 +126,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\DImage\DImage.cs" />
-    <Compile Include="Source\DImage\DImageData.cs" />
+    <Compile Include="Source\DataManager\DataManager.cs" />
+    <Compile Include="Source\DImage\DImage_Abstract.cs" />
     <Compile Include="Source\DImage\DImage_Draw.cs" />
+    <Compile Include="Source\DImage\DImage_Gray.cs" />
     <Compile Include="Source\Fonts\BDFStructures.cs" />
     <Compile Include="Source\Fonts\GlyphDecodeInfo.cs" />
     <Compile Include="Source\Fonts\GlyphDecoder_GlyphDecoder.cs" />
     <Compile Include="Source\Fonts\GlyphDecoder_LoadFont.cs" />
     <Compile Include="Source\Fonts\GlyphDecoder_Public.cs" />
-    <Compile Include="Source\Fonts\PutPixelInterface.cs" />
+    <Compile Include="Source\Fonts\GlyphDecoder_PutPixelCB.cs" />
     <Compile Include="Source\Forms\ConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,14 +143,15 @@
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Fonts\FontData.cs" />
-    <Compile Include="Source\Google\Google.cs" />
+    <Compile Include="Source\DataManager\Google.cs" />
     <Compile Include="Source\Logitech\Lcd.cs" />
     <Compile Include="Source\Logitech\LogitechInterface.cs" />
     <Compile Include="Source\Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Main\TrayNotification.cs" />
-    <Compile Include="Source\Exchange\ReadExchange.cs" />
-    <Compile Include="Source\StringEncrypter\StringCipher.cs" />
+    <Compile Include="Source\DataManager\ReadExchange.cs" />
+    <Compile Include="Source\DataManager\StringCipher.cs" />
+    <Compile Include="Source\Workerthread\G510Display_Main.cs" />
     <Compile Include="Source\Workerthread\ThreadPolling.cs" />
     <EmbeddedResource Include="Source\Forms\ConfigurationForm.resx">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>

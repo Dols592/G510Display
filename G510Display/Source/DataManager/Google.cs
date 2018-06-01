@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-
+using G510Display.Source.DataManager;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
@@ -56,22 +56,24 @@ namespace G510Display.Source.Google
       {
         foreach (var eventItem in events.Items)
         {
-          CalendarItem NewCalendarItem;
-          if (eventItem.Start.DateTime != null)
+          CalendarItem NewCalendarItem = new CalendarItem();
+          if (eventItem.Start.DateTime != null && eventItem.End.DateTime != null)
+          {
             NewCalendarItem.Start = (DateTime)eventItem.Start.DateTime;
-          else if (eventItem.Start.Date != null)
+            NewCalendarItem.End = (DateTime)eventItem.End.DateTime;
+            NewCalendarItem.IsWholeDay = false;
+          }
+          else if (eventItem.Start.Date != null && eventItem.End.Date != null)
+          {
             NewCalendarItem.Start = DateTime.Parse(eventItem.Start.Date);
-          else
-            continue;
-
-          if (eventItem.End.DateTime != null)
-            NewCalendarItem.End = (DateTime)eventItem.Start.DateTime;
-          else if (eventItem.End.Date != null)
-            NewCalendarItem.End = DateTime.Parse(eventItem.Start.Date);
+            NewCalendarItem.End = DateTime.Parse(eventItem.End.Date);
+            NewCalendarItem.IsWholeDay = true;
+          }
           else
             continue;
 
           NewCalendarItem.Subject = eventItem.Summary;
+          NewCalendarItem.Source = G510Display.Source.DataManager.ItemSource.Google1;
           CalendarItems.Add(NewCalendarItem);
         }
       }

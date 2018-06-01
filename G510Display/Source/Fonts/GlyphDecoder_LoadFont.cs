@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace G510Display.Source.Fonts
 {
-  partial class Font
+  public partial class Font
   {
     private BDF_Font_Header FontHeader;
 

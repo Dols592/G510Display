@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using G510Display.Source.DrawImage;
+using G510Display.Source.DataManager;
+using G510Display.Source.DImage;
 using G510Display.Source.Logitech;
 
 namespace G510Display.Source
 {
   class Lcd
   {
-    DImage TestImage;
+    public DImage_Abstract Image;
     bool Loaded = false;
-    bool IsKey0Pressed = false;
-    bool IsKey1Pressed = false;
-    bool IsKey2Pressed = false;
-    bool IsKey3Pressed = false;
+    public bool IsKey0Pressed = false;
+    public bool IsKey1Pressed = false;
+    public bool IsKey2Pressed = false;
+    public bool IsKey3Pressed = false;
     LcdKeyCB KeyCb;
 
     public void Init(LcdKeyCB LcdKeyCb)
     {
-      TestImage = new DImage();
+      Image = new DImage_Gray();
+      Image.NewImage(LogitechInterface.LOGI_LCD_MONO_WIDTH, LogitechInterface.LOGI_LCD_MONO_HEIGHT);
       Loaded = LogitechInterface.LogiLcdInit("G510Display", LogitechInterface.LOGI_LCD_TYPE_MONO);
-      TestImage.NewImage(LogitechInterface.LOGI_LCD_MONO_WIDTH, LogitechInterface.LOGI_LCD_MONO_HEIGHT, false, false, false);
       KeyCb = LcdKeyCb;
     }
     public void LcdWrite(int lineNumber, String text)
@@ -30,19 +30,12 @@ namespace G510Display.Source
     public void Update()
     {
       if (!Loaded) return;
-      LogitechInterface.LogiLcdMonoSetBackground(TestImage.GetImage());
+      LogitechInterface.LogiLcdMonoSetBackground(Image.GetData());
       LogitechInterface.LogiLcdUpdate();
     }
     public void Clear()
     {
-      TestImage.DrawClear();
-      TestImage.DrawHLine(0, 0, 160, 255);
-      TestImage.DrawHLine(0, 1, 160, 255);
-      TestImage.DrawHLine(0, 2, 160, 255);
-      TestImage.DrawHLine(0, 3, 160, 255);
-      TestImage.DrawHLine(0, 4, 160, 255);
-      TestImage.DrawHLine(0, 5, 160, 255);
-      TestImage.DrawHLine(0, 6, 160, 255);
+      Image.Clear();
     }
     public void PollKeys()
     {
@@ -84,17 +77,22 @@ namespace G510Display.Source
     }
     public void LcdWriteTime()
     {
-      TestImage.Image.ModeInverse = true;
-      TestImage.Image.ModeTransparent = false;
-      TestImage.Font_4x6_tf.DrawString(5, 1, DateTime.Now.ToLongDateString());
-      TestImage.Font_4x6_tf.DrawStringRightAligned(157, 1, DateTime.Now.ToLongTimeString());
-      TestImage.Image.ModeInverse = false;
-      TestImage.Image.ModeTransparent = true;
+      Image.DrawHLine(0, 0, 160, 255);
+      Image.DrawHLine(0, 1, 160, 255);
+      Image.DrawHLine(0, 2, 160, 255);
+      Image.DrawHLine(0, 3, 160, 255);
+      Image.DrawHLine(0, 4, 160, 255);
+      Image.DrawHLine(0, 5, 160, 255);
+      Image.DrawHLine(0, 6, 160, 255);
+
+      Image.Font_4x6_tf.DrawString(5, 1, DateTime.Now.ToLongDateString(), false, true);
+      Image.Font_4x6_tf.DrawStringRightAligned(157, 1, DateTime.Now.ToLongTimeString(), false, true);
     }
     public void LcdWrite(int ItemNr, CalendarItem Item)
     {
       TimeSpan Duration = Item.Start - DateTime.Now;
-      int StartMinute = (int) (Duration.TotalHours * 60.0) + 1;
+      int StartMinute = (int) Duration.TotalMinutes;
+      if (Duration.TotalMilliseconds > 0) StartMinute++;
 
       string s;
 
@@ -105,15 +103,15 @@ namespace G510Display.Source
       else
         s = string.Format("{0,3}  {1}", StartMinute, Item.Subject);
       
-      TestImage.Font_4x6_tf.DrawStringRightAligned(17, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing() + 1, StartMinute.ToString());
-      TestImage.Font_4x6_tf.DrawString(20, (ItemNr + 1) * TestImage.Font_4x6_tf.GetYSpacing() + 1, Item.Subject);
+      Image.Font_4x6_tf.DrawStringRightAligned(17, (ItemNr + 1) * Image.Font_4x6_tf.GetYSpacing() + 1, StartMinute.ToString());
+      Image.Font_4x6_tf.DrawString(20, (ItemNr + 1) * Image.Font_4x6_tf.GetYSpacing() + 1, Item.Subject);
     }
     public void LcdWrite(EmailItem Item)
     {
       String InfoString1 = "From: " + Item.From;
       String InfoString2 = "Subject: " + Item.Subject;
 
-      G510Display.Source.Fonts.Font DrawFont = TestImage.Font_4x6_tf;
+      G510Display.Source.Fonts.Font DrawFont = Image.Font_4x6_tf;
 
       DrawFont.DrawString(0, LogitechInterface.LOGI_LCD_MONO_HEIGHT - (2 * DrawFont.GetYSpacing()), InfoString1);
       DrawFont.DrawString(0, LogitechInterface.LOGI_LCD_MONO_HEIGHT - (1 * DrawFont.GetYSpacing()), InfoString2);

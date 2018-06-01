@@ -3,24 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using G510Display.Source.DataManager;
 using Microsoft.Exchange.WebServices.Data;
 
 namespace G510Display.Source
 {
-  struct CalendarItem
-  {
-    public DateTime Start;
-    public DateTime End;
-    public string Subject;
-  }
-
-  struct EmailItem
-  {
-    public String From;
-    public String Subject;
-    public DateTime ReceivedTimestamp;
-  }
-
   class ReadExchange
   {
     public static List<CalendarItem> ReadTodaysCalendarItems()
@@ -38,10 +25,11 @@ namespace G510Display.Source
       {
         Appointment ItemAppointment = item as Appointment;
 
-        CalendarItem NewCalendarItem;
+        CalendarItem NewCalendarItem = new CalendarItem();
         NewCalendarItem.Start = ItemAppointment.Start;
         NewCalendarItem.End = ItemAppointment.End;
         NewCalendarItem.Subject = ItemAppointment.Subject;
+        NewCalendarItem.Source = G510Display.Source.DataManager.ItemSource.Exchange1;
         CalendarItems.Add(NewCalendarItem);
       }
 
@@ -58,7 +46,7 @@ namespace G510Display.Source
       foreach (Item item in SearchResults.Items)
       {
         EmailMessage ItemEmail = item as EmailMessage;
-        EmailItem NewEmailItem;
+        EmailItem NewEmailItem = new EmailItem();
         NewEmailItem.From= ItemEmail.Sender.Name;
         NewEmailItem.Subject = ItemEmail.Subject;
         NewEmailItem.ReceivedTimestamp = ItemEmail.DateTimeReceived;

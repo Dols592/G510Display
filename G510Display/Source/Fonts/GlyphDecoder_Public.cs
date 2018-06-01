@@ -3,17 +3,19 @@ using System.Collections.Generic;
 
 namespace G510Display.Source.Fonts
 {
-  partial class Font
+  public partial class Font
   {
-    public Font(string OctalString, PutPixelInterface PixelWriter)
+    public Font(string OctalString, CFontPutPixelCB PixelWriter)
     {
       FontHeader = LoadFont(OctalString);
       PutPixelWriter = PixelWriter;
     }
-    public void DrawString(Int32 X, Int32 Y, String Text)
+    public void DrawString(Int32 X, Int32 Y, String Text, bool Transparant = true, bool Inversed = false)
     {
-      PutPixelWriter.CursorX = X;
-      PutPixelWriter.CursorY = Y;
+      CursorX = X;
+      CursorY = Y;
+      ModeInverse = Inversed;
+      ModeTransparent = Transparant;
 
       for (int i = 0; i < Text.Length; i++)
       {
@@ -21,10 +23,12 @@ namespace G510Display.Source.Fonts
         DrawGlyph(GlyphPos, false);
       }        
     }
-    public void DrawStringRightAligned(Int32 X, Int32 Y, String Text)
+    public void DrawStringRightAligned(Int32 X, Int32 Y, String Text, bool Transparant = true, bool Inversed = false)
     {
-      PutPixelWriter.CursorX = X;
-      PutPixelWriter.CursorY = Y;
+      CursorX = X;
+      CursorY = Y;
+      ModeInverse = Inversed;
+      ModeTransparent = Transparant;
 
       for (int i = Text.Length - 1; i >= 0; i--)
       {

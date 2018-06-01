@@ -7,8 +7,6 @@ using System.Runtime.InteropServices;
 
 namespace G510Display.Source.Logitech
 {
-
-
   class LogitechInterface
   {
     //private const string DllName = "LogitechLcdEnginesWrapper ";
